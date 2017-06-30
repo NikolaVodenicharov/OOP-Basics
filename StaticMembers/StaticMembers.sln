@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeleteMe", "DeleteMe\DeleteMe.csproj", "{15E0EDAE-910B-4AFB-ACB1-FC6B657404A0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentExercices", "StudentExercices\StudentExercices.csproj", "{89D3A792-A7B6-4803-A107-3A741E14488C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemperatureConvertor", "TemperatureConvertor\TemperatureConvertor.csproj", "{5A14C856-ADD9-4ED3-B8DE-B8A7D01CC697}"
@@ -25,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{15E0EDAE-910B-4AFB-ACB1-FC6B657404A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15E0EDAE-910B-4AFB-ACB1-FC6B657404A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15E0EDAE-910B-4AFB-ACB1-FC6B657404A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15E0EDAE-910B-4AFB-ACB1-FC6B657404A0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{89D3A792-A7B6-4803-A107-3A741E14488C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{89D3A792-A7B6-4803-A107-3A741E14488C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89D3A792-A7B6-4803-A107-3A741E14488C}.Release|Any CPU.ActiveCfg = Release|Any CPU
