@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeleteMe", "DeleteMe\DeleteMe.csproj", "{1A75AFF9-FBD1-441A-8B5B-31D90483AB91}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabExample", "DeleteMe\LabExample.csproj", "{1A75AFF9-FBD1-441A-8B5B-31D90483AB91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicles", "Vehicles\Vehicles.csproj", "{6094B1CC-49FD-4ABB-A84A-1D84B15F75DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehiclesExtension", "VehiclesExtension\VehiclesExtension.csproj", "{28EE1D7A-6D70-4CF7-94FE-3DA2DF957052}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{1A75AFF9-FBD1-441A-8B5B-31D90483AB91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A75AFF9-FBD1-441A-8B5B-31D90483AB91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A75AFF9-FBD1-441A-8B5B-31D90483AB91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6094B1CC-49FD-4ABB-A84A-1D84B15F75DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6094B1CC-49FD-4ABB-A84A-1D84B15F75DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6094B1CC-49FD-4ABB-A84A-1D84B15F75DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6094B1CC-49FD-4ABB-A84A-1D84B15F75DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28EE1D7A-6D70-4CF7-94FE-3DA2DF957052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28EE1D7A-6D70-4CF7-94FE-3DA2DF957052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28EE1D7A-6D70-4CF7-94FE-3DA2DF957052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28EE1D7A-6D70-4CF7-94FE-3DA2DF957052}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

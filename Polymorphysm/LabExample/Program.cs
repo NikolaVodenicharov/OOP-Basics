@@ -31,7 +31,7 @@ namespace DeleteMe
 
     public class Penguin : Animal
     {
-        public int wingPower;
+        public double wingPower;
 
         public Penguin(string name, string favourFood, int age)
             :base (name, favourFood, age)
@@ -51,7 +51,7 @@ namespace DeleteMe
 
     public class Cow : Animal
     {
-        public int bodyMassIndex;
+        public double bodyMassIndex;
 
         public Cow (string name, string favourFood, int age)
             :base (name, favourFood, age)
@@ -72,19 +72,21 @@ namespace DeleteMe
     public abstract class Food
     {
         public string name;
-        public int nutritionValue;
+        public double nutritionValue;
+        public double calories;
 
-        public Food(string name, int nutritionValue)
+        public Food(string name, double nutritionValue, double calories)
         {
             this.name = name;
             this.nutritionValue = nutritionValue;
+            this.calories = calories;
         }
     }
 
     public class Seaweed : Food
     {
-        public Seaweed (string name, int nutritionValue)
-            :base(name, nutritionValue)
+        public Seaweed (string name, double nutritionValue, double calories)
+            :base(name, nutritionValue, calories)
         {
         }
     }
