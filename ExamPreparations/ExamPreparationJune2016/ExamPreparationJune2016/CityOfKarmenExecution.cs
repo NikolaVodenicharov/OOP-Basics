@@ -1,9 +1,9 @@
 ﻿namespace ExamPreparationJune2016
 {
-    using ExamPreparationJune2016.PeopleInKarmen;
-    using System.Collections.Generic;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using ExamPreparationJune2016.PeopleInKarmen;
 
     public class CityOfKarmenExecution
     {
@@ -11,7 +11,7 @@
         {
             var households = new List<Household>();
             
-            //with each 3rd input is day to pay salaries and pensions
+            // with each 3rd input is day to pay salaries and pensions
             int inputCounter = 0;
  
             while (true)
@@ -27,18 +27,15 @@
                 {
                     PrintTotalConsumption(households);
                 }
-
                 else if (input.Equals("EVN bill", StringComparison.OrdinalIgnoreCase))
                 {
                     PayBillsOrEmigrate(households);
                 }
-
                 else if (input.Equals("Democracy", StringComparison.OrdinalIgnoreCase))
                 {
                     PrintTotalPopulation(households);
                     break;
                 }
-
                 else
                 {
                     try
@@ -124,8 +121,8 @@
             }
             else if (type.Equals("OldCouple", StringComparison.OrdinalIgnoreCase))
             {
-                households.Add(new OldCouple
-                              (income,
+                households.Add(new OldCouple(
+                               income,
                                fridge,
                                television,
                                laptopOrStove));
@@ -142,8 +139,8 @@
             {
                 List<Child> children = MakeChildList(info);
 
-                households.Add(new YoungCoupleWithChilden
-                              (income,
+                households.Add(new YoungCoupleWithChilden(
+                               income,
                                fridge,
                                television,
                                laptopOrStove,
