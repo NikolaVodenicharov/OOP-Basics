@@ -41,8 +41,15 @@
 
                 else
                 {
-                    AddHousehold(households, input);
-                    PayMoneyToLastAdded(households, isPayday);
+                    try
+                    {
+                        AddHousehold(households, input);
+                        PayMoneyToLastAdded(households, isPayday);
+                    }
+                    catch (Exception)
+                    {
+                        // put exception ?
+                    }
                 }
             }
         }
@@ -90,7 +97,7 @@
 
         private static void PrintTotalConsumption(List<Household> households)
         {
-            Console.WriteLine("Total consumption: {0:f1}",
+            Console.WriteLine("Total consumption: {0}",
                               households.Sum(x => x.CalculateConsumption()));
         }
 
