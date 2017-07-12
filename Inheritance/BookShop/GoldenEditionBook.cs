@@ -14,7 +14,7 @@ namespace BookShop
         {
             get
             {
-                return base.Price * 1.3;
+                return (base.Price * 1.3);
             }
         }
     }

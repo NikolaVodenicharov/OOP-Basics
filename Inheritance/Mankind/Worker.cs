@@ -4,17 +4,34 @@ namespace Mankind
 {
     class Worker : Human
     {
+        private const int WorkDayPerWeek = 5;
         private double weekSalary;
         private double workHoursPerDay;
-        private double moneyEarnsByHour;
 
         public Worker(string firstName, string lastName, double weekSalary, double workHoursPerDay)
             : base(firstName, lastName)
         {
             this.WeekSalary = weekSalary;
             this.WorkHoursPerDay = workHoursPerDay;
-            this.MoneyEarnsByHour = CalculateMoneyEarnsByHour();
         }
+
+        //public override string LastName
+        //{
+        //    get
+        //    {
+        //        return base.LastName;
+        //    }
+        //    set
+        //    {
+        //        if (value.Length <= 3)
+        //        {
+        //            throw new ArgumentException("Expected length more than 3 symbols! Argument: lastName");
+        //        }
+
+        //        base.LastName = value;
+        //    }
+        //}
+
 
         public double WeekSalary
         {
@@ -26,7 +43,7 @@ namespace Mankind
             {
                 if (value <= 10)
                 {
-                    throw new ArgumentException("Expected value mismatch!Argument: weekSalary");
+                    throw new ArgumentException("Expected value mismatch! Argument: weekSalary");
                 }
 
                 this.weekSalary = value;
@@ -43,28 +60,16 @@ namespace Mankind
             {
                 if (value < 1 || value > 12)
                 {
-                    throw new ArgumentException("Expected value mismatch!Argumen: workHoursPerDay");
+                    throw new ArgumentException("Expected value mismatch! Argumen: workHoursPerDay");
                 }
 
                 this.workHoursPerDay = value;
             }
         }
 
-        public double MoneyEarnsByHour
-        {
-            get
-            {
-                return this.moneyEarnsByHour;
-            }
-            set
-            {
-                this.moneyEarnsByHour = value;
-            }
-        }
-
         public double CalculateMoneyEarnsByHour()
         { 
-            return this.weekSalary / (this.workHoursPerDay * 7);
+            return this.weekSalary / (this.workHoursPerDay * WorkDayPerWeek);
         }
 
         public override string ToString()
@@ -72,9 +77,9 @@ namespace Mankind
             var sb = new System.Text.StringBuilder();
 
             sb.AppendLine(base.ToString())
-              .AppendLine($"Week Salary: {this.WeekSalary}")
-              .AppendLine($"Hours per day: {this.WorkHoursPerDay}")
-              .Append($"Salary per hour: {this.MoneyEarnsByHour:f2}");
+              .AppendLine($"Week Salary: {this.WeekSalary:f2}")
+              .AppendLine($"Hours per day: {this.WorkHoursPerDay:f2}")
+              .Append($"Salary per hour: {this.CalculateMoneyEarnsByHour():f2}");
 
             return sb.ToString();
         }

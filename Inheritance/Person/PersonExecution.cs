@@ -1,6 +1,6 @@
 ﻿using System;
 
-class PersonExecution
+public class PersonExecution
 {
     static void Main()
     {
@@ -16,7 +16,6 @@ class PersonExecution
         {
             Console.WriteLine(ae.Message);
         }
-
     }
 }
 

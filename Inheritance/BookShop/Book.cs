@@ -24,12 +24,18 @@ namespace BookShop
             }
             set
             {
-                var splitedNamesOfAuthor = value.Split();
-                var firstLetterOfSecondName = splitedNamesOfAuthor[1][0];
-                if (char.IsDigit(firstLetterOfSecondName))
+                string[] authorNames = value.Split();
+                bool hasAuthorSecondName = authorNames.Length == 2;
+                if (hasAuthorSecondName)
                 {
-                    throw new ArgumentException("Author not valid!");
+                    char firstLetterOfSecondName = authorNames[1][0];
+
+                    if (char.IsDigit(firstLetterOfSecondName))
+                    {
+                        throw new ArgumentException("Author not valid!");
+                    }
                 }
+
 
                 this.author = value;
             }
@@ -86,7 +92,7 @@ namespace BookShop
               .Append(Environment.NewLine)
 
               .Append($"Price: ")
-              .Append($"{this.price:f1}")
+              .Append($"{this.Price:f1}")
               .Append(Environment.NewLine);
 
             return sb.ToString();

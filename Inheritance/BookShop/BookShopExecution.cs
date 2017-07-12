@@ -16,7 +16,7 @@ namespace BookShop
                 GoldenEditionBook goldenEditionBook = new GoldenEditionBook(author, title, price);
 
                 Console.WriteLine(book);
-                Console.WriteLine(goldenEditionBook);
+                Console.WriteLine(goldenEditionBook.ToString().Trim());
             }
             catch (ArgumentException ae)
             {

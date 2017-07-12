@@ -25,6 +25,7 @@ namespace Mankind
                 {
                     throw new ArgumentException("Invalid faculty number!");
                 }
+
                 this.facultyNumber = value;
             }
         }

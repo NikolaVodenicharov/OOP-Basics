@@ -2,8 +2,8 @@
 
 public class Person
 {
-    protected string name;
-    protected int age;
+    private string name;
+    private int age;
 
     public Person (string name, int age)
     {
@@ -11,7 +11,7 @@ public class Person
         this.Age = age;
     }
 
-    public virtual string Name
+    public string Name
     {
         get
         {
@@ -21,7 +21,7 @@ public class Person
         {
             if (value.Length < 3)
             {
-                throw new ArgumentException("Name’s length should not be less than 3 symbols!");
+                throw new ArgumentException("Name's length should not be less than 3 symbols!");
             }
 
             this.name = value;
