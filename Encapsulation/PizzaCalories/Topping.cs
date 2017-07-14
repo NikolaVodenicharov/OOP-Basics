@@ -4,89 +4,69 @@ using System.Linq;
 
 class Topping
 {
-    private static double meatModifier = 1.2;
-    private static double veggiesModifier = 0.8;
-    private static double cheeseModifier = 1.1;
-    private static double sauceModifier = 0.9;
-    private static double caloriesBase = 2.0;
+    private const double CaloriesBase = 2.0;
+    private const double MinimumWeight = 1;
+    private const double MaximumWeigth = 50;
 
-    private static HashSet<string> toppingsTypes = new HashSet<string>()
+    private static Dictionary<string, double> ToppingModifier = new Dictionary<string, double>()
     {
-        "Meat",
-        "Veggies",
-        "Cheese",
-        "Sauce"
+        ["meat"] = 1.2,
+        ["veggies"] = 0.8,
+        ["cheese"] = 1.1,
+        ["sauce"] = 0.9
     };
 
-    private string toppingType;
-    public string ToppingType
+    private string type;
+    private double weight;
+
+    public Topping(string toppingType, double weight)
     {
-        get { return this.toppingType; }
+        this.ToppingType = toppingType;
+        this.Weight = weight;
+    }
+
+    private string ToppingType
+    {
         set
         {
-            if (!toppingsTypes.Contains(value, StringComparer.InvariantCultureIgnoreCase))
+            if (!ToppingModifier.ContainsKey(value.ToLowerInvariant()))
             {
                 throw new ArgumentException($"Cannot place {value} on top of your pizza.");
             }
 
-            this.toppingType = value;
+            this.type = value.ToLowerInvariant();
         }
     }
 
-    private double weight;
-    public double Weight
+    private double Weight
     {
-        get { return this.weight; }
         set
         {
-            if (value < 1 || value > 50)
+            if (value < MinimumWeight || value > MaximumWeigth)
             {
-                throw new ArgumentException($"{this.toppingType} weight should be in the range[1..50].");
+                string toppingType = UppercaseFirst(this.type);
+                throw new ArgumentException($"{toppingType} weight should be in the range [{MinimumWeight}..{MaximumWeigth}].");
             }
 
             this.weight = value;
         }
     }
 
-    private double toppingCalories;
-    public double ToppingCalories
+    public double CalculateCalories ()
     {
-        get { return CalculateToppingCalories(); }
+        var calories = this.weight * ToppingModifier[type] * CaloriesBase;
+
+        return calories;
     }
 
-    public Topping (string toppingType, double weight)
+    private static string UppercaseFirst(string s)
     {
-        this.ToppingType = toppingType;
-        this.Weight = weight;
-    }
-
-    private double CalculateToppingCalories ()
-    {
-        double modifier = FindModifier();
-
-        return this.weight * modifier * caloriesBase;
-    }
-
-    private double FindModifier()
-    {
-        var modifier = 0.0;
-
-        switch (toppingType.ToLowerInvariant())
+        // Check for empty string.
+        if (string.IsNullOrEmpty(s))
         {
-            case "meat":
-                modifier = meatModifier;
-                break;
-            case "veggies":
-                modifier = veggiesModifier;
-                break;
-            case "cheese":
-                modifier = cheeseModifier;
-                break;
-            case "sauce":
-                modifier = sauceModifier;
-                break;
+            return string.Empty;
         }
-
-        return modifier;
+        // Return char and concat substring.
+        return char.ToUpper(s[0]) + s.Substring(1);
     }
 }

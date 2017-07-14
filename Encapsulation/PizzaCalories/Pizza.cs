@@ -3,34 +3,44 @@ using System.Collections.Generic;
 
 class Pizza
 {
+    private const int MinimumNameLength = 1;
+    private const int MaximumNameLength = 15;
+    private const int MaximumToppingsNumber = 10;
     private string name;
+    private int numberOfToppings;
+    private List<Topping> toppings;
+    public Dough doughType;
+
+    public Pizza(string name, int numberOfToppings)
+    {
+        this.Name = name;
+        this.NumberOfToppings = numberOfToppings;
+    }
+
     public string Name
     {
-        get { return this.name; }
-        set
+        get
         {
-            if (string.IsNullOrEmpty(value) || 
-                value.Length < 1 || 
-                value.Length > 15)
+            return this.name;
+        }
+
+        private set
+        {
+            bool isInvalid = 
+                string.IsNullOrEmpty(value) ||
+                value.Length < MinimumNameLength ||
+                value.Length > MaximumNameLength;
+            if (isInvalid)
             {
-                throw new ArgumentException("Pizza name should be between 1 and 15 symbols.");
+                throw new ArgumentException($"Pizza name should be between {MinimumNameLength} and {MaximumNameLength} symbols.");
             }
 
             this.name = value;
         }
     }
 
-    private Dough _dough;
-    public Dough _Dough
+    private int NumberOfToppings
     {
-        get { return this._dough; }
-        set { this._dough = value; }
-    }
-
-    private int numberOfToppings;
-    public int NumberOfToppings
-    {
-        get { return this.numberOfToppings; }
         set
         {
             if (value > 10)
@@ -42,43 +52,34 @@ class Pizza
         }
     }
 
-    private List<Topping> toppings = new List<Topping>();
+    public Dough DoughType
+    {
+        set
+        {
+            this.doughType = value;
+        }
+    }
+
     public List<Topping> Toppings
     {
         get { return this.toppings; }
         set
         {
-            if (value.Count > 10)
+            if (value.Count > MaximumToppingsNumber)
             {
-                throw new ArgumentException("Number of toppings should be in range [0..10].");
+                throw new ArgumentException($"Number of toppings should be in range [0..{MaximumToppingsNumber}");
             }
 
             this.toppings = value;
         }
     }
 
-    public Pizza()
-    {
-
-    }
-
-    public Pizza(string name, int numberOfToppings)
-    {
-        this.Name = name;
-        this.NumberOfToppings = numberOfToppings;
-        this.Toppings = new List<Topping>();
-    }
-
-
     public double CalculatePizzaCaloriers()
     {
-        var calories = 0.0;
-
-        calories += this._dough.DoughCalories;
-
+        double calories = this.doughType.CalculateCalories();
         foreach (var topping in this.toppings)
         {
-            calories += topping.ToppingCalories;
+            calories += topping.CalculateCalories();
         }
 
         return calories;

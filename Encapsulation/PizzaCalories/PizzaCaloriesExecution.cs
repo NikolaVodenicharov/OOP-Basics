@@ -6,92 +6,122 @@ class PizzaCaloriesExecution
     static void Main()
     {
         var pizzas = new List<Pizza>();
+        var doughs = new List<Dough>();
+        var toppings = new List<Topping>();
 
+        try
+        {
+            MakeOrder(pizzas, doughs, toppings);
+            AddIngridientToPizza(pizzas, doughs, toppings);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+
+    private static void AddIngridientToPizza(List<Pizza> pizzas, List<Dough> doughs, List<Topping> toppings)
+    {
+        if (pizzas.Count > 0)
+        {
+            pizzas[0].DoughType = doughs[0];
+            pizzas[0].Toppings = toppings;
+        }
+
+        PrintPizaCalories(pizzas);
+    }
+
+    private static void MakeOrder(List<Pizza> pizzas, List<Dough> doughs, List<Topping> toppings)
+    {
         while (true)
         {
-            var inputLine = Console.ReadLine();
+            var inputLine = Console.ReadLine().Split();
 
-            var isTimeToStopLoop = inputLine.Equals("end", StringComparison.InvariantCultureIgnoreCase);
-            if (isTimeToStopLoop)
+            if (inputLine[0].Equals("end", StringComparison.InvariantCultureIgnoreCase))
             {
                 break;
             }
-
-            var inputLinePizza = inputLine.Split();
-            var numberOfToppings = int.Parse(inputLinePizza[2]);
-            var inputPizza = new Pizza();
-            AddNameAndNumberOfToppigsToPizza(inputLinePizza, numberOfToppings, inputPizza);
-
-            var inputLineDough = Console.ReadLine().Split();
-            AddDoughToPizza(inputLineDough, inputPizza);
-
-            AddToppingsToPizza(numberOfToppings, inputPizza);
-
-            pizzas.Add(inputPizza);
+            else if (inputLine[0].Equals("pizza", StringComparison.InvariantCultureIgnoreCase))
+            {
+                AddPizza(pizzas, inputLine);
+            }
+            else if (inputLine[0].Equals("dough", StringComparison.InvariantCultureIgnoreCase))
+            {
+                AddDough(doughs, inputLine, pizzas);
+            }
+            else if (inputLine[0].Equals("topping", StringComparison.InvariantCultureIgnoreCase))
+            {
+                AddTopping(toppings, inputLine, pizzas);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid data");
+            }
         }
-
-        PrintNameAndCaloriesForeachPizza(pizzas);
     }
 
-    private static void AddNameAndNumberOfToppigsToPizza(string[] inputLinePizza, int numberOfToppings, Pizza inputPizza)
+    private static void AddPizza(List<Pizza> pizzas, string[] inputLine)
     {
-        var name = inputLinePizza[1];
-        try
+        pizzas.Add(
+            new Pizza
+            (inputLine[1], int.Parse(inputLine[2])));
+    }
+
+    private static void AddTopping(List<Topping> toppings, string[] inputLine, List<Pizza> pizzas)
+    {
+        var type = inputLine[1];
+        var weight = double.Parse(inputLine[2]);
+
+        toppings.Add(
+            new Topping(
+                type,
+                weight));
+
+        if (pizzas.Count == 0)
         {
-            inputPizza.Name = name;
-            inputPizza.NumberOfToppings = numberOfToppings;
-        }
-        catch (ArgumentException ae)
-        {
-            Console.WriteLine(ae.Message);
-            Environment.Exit(0);
+            PrintToppingCalories(toppings);
         }
     }
 
-    private static void PrintNameAndCaloriesForeachPizza(List<Pizza> pizzas)
+    private static void AddDough(List<Dough> doughs, string[] inputLine, List<Pizza> pizzas)
+    {
+        var flourType = inputLine[1];
+        var bakingTechnique = inputLine[2];
+        var weight = double.Parse(inputLine[3]);
+
+        doughs.Add(
+            new Dough(
+                flourType,
+                bakingTechnique,
+                weight));
+
+        if (pizzas.Count == 0)
+        {
+            PrintDoughCalories(doughs);
+        }
+    }
+
+    private static void PrintPizaCalories(List<Pizza> pizzas)
     {
         foreach (var pizza in pizzas)
         {
-            Console.WriteLine($"{pizza.Name} – {pizza.CalculatePizzaCaloriers():f2} Calories.");
+            Console.WriteLine($"{pizza.Name} - {pizza.CalculatePizzaCaloriers():f2} Calories.");
         }
     }
 
-    private static void AddDoughToPizza(string[] inputLineDough, Pizza inputPizza)
+    private static void PrintToppingCalories(List<Topping> toppings)
     {
-        var flourType = inputLineDough[1];
-        var bakingTechnique = inputLineDough[2];
-        var weight = double.Parse(inputLineDough[3]);
-
-        try
+        foreach (var topping in toppings)
         {
-            var inputDough = new Dough(flourType, bakingTechnique, weight);
-            inputPizza._Dough = inputDough;
-        }
-        catch (ArgumentException ae)
-        {
-            Console.WriteLine(ae.Message);
-            Environment.Exit(0); ;
+            Console.WriteLine("{0:f2}", topping.CalculateCalories());
         }
     }
 
-    private static void AddToppingsToPizza(int numberOfToppings, Pizza inputPizza)
+    private static void PrintDoughCalories(List<Dough> doughs)
     {
-        for (int i = 0; i < numberOfToppings; i++)
+        foreach (var dough in doughs)
         {
-            var inputLineTopping = Console.ReadLine().Split();
-            var type = inputLineTopping[1];
-            var weight = double.Parse(inputLineTopping[2]);
-
-            try
-            {
-                var inputTopping = new Topping(type, weight);
-                inputPizza.Toppings.Add(inputTopping);
-            }
-            catch (ArgumentException ae)
-            {
-                Console.WriteLine(ae.Message);
-                Environment.Exit(0);
-            }
+            Console.WriteLine("{0:f2}", dough.CalculateCalories());
         }
     }
 }

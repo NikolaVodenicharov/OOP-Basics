@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 
-internal class ShoppingSpreeExecution
+public class ShoppingSpreeExecution
 {
-    static void Main()
+    public static void Main()
     {
-        var listOfPersons = new List<Person>();
-        ReadFromConsoleAddToListOfPersons(listOfPersons);
+        var persons = new List<Person>();
+        ReadFromConsoleAddToPersons(persons);
 
-        var listOfProducts = new List<Product>();
-        ReadFromConsoleAddToListOfProducts(listOfProducts);
+        var products = new List<Product>();
+        ReadFromConsoleAddToProducts(products);
 
         while (true)
         {
@@ -22,10 +22,10 @@ internal class ShoppingSpreeExecution
                 break;
             }
 
-            PurchaseProduct(listOfPersons, listOfProducts, inputLine);
+            PurchaseProduct(persons, products, inputLine);
         }
 
-        foreach (var person in listOfPersons)
+        foreach (var person in persons)
         {
             if (person.BagOfProducts.Count == 0)
             {
@@ -40,7 +40,7 @@ internal class ShoppingSpreeExecution
         }
     }
 
-    private static void PurchaseProduct(List<Person> listOfPersons, List<Product> listOfProducts, string inputLine)
+    private static void PurchaseProduct(List<Person> persons, List<Product> products, string inputLine)
     {
         var splitLine = inputLine.Split();
 
@@ -49,10 +49,10 @@ internal class ShoppingSpreeExecution
 
         try
         {
-            listOfPersons                                           // list
+            persons                                           // list
             .Single(n => n.Name == personName)                      // person
             .AddProductToBagOfProducts                              // method
-            (listOfProducts.Single(x => x.Name == productName));    // product
+            (products.Single(x => x.Name == productName));    // product
 
             Console.WriteLine($"{personName} bought {productName}");
         }
@@ -62,7 +62,7 @@ internal class ShoppingSpreeExecution
         }
     }
 
-    private static void ReadFromConsoleAddToListOfProducts(List<Product> listOfProducts)
+    private static void ReadFromConsoleAddToProducts(List<Product> products)
     {
         var inputProducts = Console.ReadLine().Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -70,13 +70,21 @@ internal class ShoppingSpreeExecution
         {
             var inputProduct = inputProducts[i].Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
             var name = inputProduct[0];
-            var cost = double.Parse(inputProduct[1]);
+            var money = double.Parse(inputProduct[1]);
 
-            listOfProducts.Add(new Product(name, cost));
+            try
+            {
+                products.Add(new Product(name, money));
+            }
+            catch (ArgumentException ae)
+            {
+                Console.WriteLine(ae.Message);
+                Environment.Exit(0);
+            }
         }
     }
 
-    private static void ReadFromConsoleAddToListOfPersons(List<Person> listOfPersons)
+    private static void ReadFromConsoleAddToPersons(List<Person> persons)
     {
         var inputPersons = Console.ReadLine().Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -88,7 +96,7 @@ internal class ShoppingSpreeExecution
 
             try
             {
-                listOfPersons.Add(new Person(name, money));     // (new global::Person(name, money));
+                persons.Add(new Person(name, money));     // (new global::Person(name, money));
             }
             catch (ArgumentException ae)
             {
