@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-class PizzaCaloriesExecution
+public class PizzaCaloriesExecution
 {
-    static void Main()
+    public static void Main()
     {
         var pizzas = new List<Pizza>();
         var doughs = new List<Dough>();
@@ -63,8 +63,9 @@ class PizzaCaloriesExecution
     private static void AddPizza(List<Pizza> pizzas, string[] inputLine)
     {
         pizzas.Add(
-            new Pizza
-            (inputLine[1], int.Parse(inputLine[2])));
+            new Pizza(
+                inputLine[1], 
+                int.Parse(inputLine[2])));
     }
 
     private static void AddTopping(List<Topping> toppings, string[] inputLine, List<Pizza> pizzas)
@@ -125,4 +126,3 @@ class PizzaCaloriesExecution
         }
     }
 }
-
