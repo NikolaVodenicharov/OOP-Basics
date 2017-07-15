@@ -22,7 +22,7 @@
                 return this.name;
             }
 
-            set
+            private set
             {
                 bool isInvalid = string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value);
                 if (isInvalid)

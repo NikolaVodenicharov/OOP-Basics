@@ -32,7 +32,7 @@
                 return this.name;
             }
 
-            set
+            private set
             {
                 bool isInvalid = string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value);
                 if (isInvalid)
@@ -51,7 +51,7 @@
                 return this.endurance;
             }
 
-            set
+            private set
             {
                 if (value < MinimumStats || value > MaximumStats)
                 {
@@ -69,7 +69,7 @@
                 return this.sprint;
             }
 
-            set
+            private set
             {
                 if (value < MinimumStats || value > MaximumStats)
                 {
@@ -87,7 +87,7 @@
                 return this.dribble;
             }
 
-            set
+            private set
             {
                 if (value < MinimumStats || value > MaximumStats)
                 {
@@ -105,7 +105,7 @@
                 return this.passing;
             }
 
-            set
+            private set
             {
                 if (value < MinimumStats || value > MaximumStats)
                 {
@@ -123,7 +123,7 @@
                 return this.shooting;
             }
 
-            set
+            private set
             {
                 if (value < MinimumStats || value > MaximumStats)
                 {
