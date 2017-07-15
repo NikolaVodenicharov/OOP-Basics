@@ -1,87 +1,96 @@
-﻿using System;
-using System.Collections.Generic;
-
-class Pizza
+﻿namespace PizzaCalories.Pizzeria
 {
-    private const int MinimumNameLength = 1;
-    private const int MaximumNameLength = 15;
-    private const int MaximumToppingsNumber = 10;
-    private string name;
-    private int numberOfToppings;
-    private List<Topping> toppings;
-    public Dough doughType;
+    using System;
+    using System.Collections.Generic;
 
-    public Pizza(string name, int numberOfToppings)
+    public class Pizza
     {
-        this.Name = name;
-        this.NumberOfToppings = numberOfToppings;
-    }
+        private const int MinimumNameLength = 1;
+        private const int MaximumNameLength = 15;
+        private const int MaximumToppingsNumber = 10;
 
-    public string Name
-    {
-        get
+        private string name;
+        private int toppingsNumber;
+        private List<Topping> toppings;
+        public Dough dough;
+
+        public Pizza(string name, int numberOfToppings)
         {
-            return this.name;
+            this.Name = name;
+            this.ToppingsNumber = numberOfToppings;
+            this.toppings = new List<Topping>();
         }
 
-        private set
+        public string Name
         {
-            bool isInvalid = 
-                string.IsNullOrEmpty(value) ||
-                value.Length < MinimumNameLength ||
-                value.Length > MaximumNameLength;
-            if (isInvalid)
+            get
             {
-                throw new ArgumentException($"Pizza name should be between {MinimumNameLength} and {MaximumNameLength} symbols.");
+                return this.name;
             }
 
-            this.name = value;
-        }
-    }
-
-    private int NumberOfToppings
-    {
-        set
-        {
-            if (value > 10)
+            private set
             {
-                throw new ArgumentException("Number of toppings should be in range [0..10].");
+                bool isInvalid =
+                    string.IsNullOrEmpty(value) ||
+                    value.Length < MinimumNameLength ||
+                    value.Length > MaximumNameLength;
+
+                if (isInvalid)
+                {
+                    throw new ArgumentException($"Pizza name should be between {MinimumNameLength} and {MaximumNameLength} symbols.");
+                }
+
+                this.name = value;
+            }
+        }
+
+        public Dough Dough
+        {
+            set
+            {
+                this.dough = value;
+            }
+        }
+
+        public int ToppingsNumber
+        {
+            get
+            {
+                return this.toppingsNumber;
             }
 
-            this.numberOfToppings = value;
-        }
-    }
-
-    public Dough DoughType
-    {
-        set
-        {
-            this.doughType = value;
-        }
-    }
-
-    public List<Topping> Toppings
-    {
-        get { return this.toppings; }
-        set
-        {
-            if (value.Count > MaximumToppingsNumber)
+            private set
             {
-                throw new ArgumentException($"Number of toppings should be in range [0..{MaximumToppingsNumber}");
+                if (value > 10)
+                {
+                    throw new ArgumentException($"Number of toppings should be in range [0..{MaximumToppingsNumber}]");
+                }
+
+                this.toppingsNumber = value;
+            }
+        }
+
+        public double CalculatePizzaCaloriers()
+        {
+            double calories = this.dough.CalculateCalories();
+            foreach (var topping in this.toppings)
+            {
+                calories += topping.CalculateCalories();
             }
 
-            this.toppings = value;
+            return calories;
         }
-    }
 
-    public double CalculatePizzaCaloriers()
-    {
-        double calories = this.doughType.CalculateCalories();
-        foreach (var topping in this.toppings)
+        public void AddTopping(Topping topping)
         {
-            calories += topping.CalculateCalories();
+            this.toppings.Add(topping);
         }
 
-        return calories;
+        public void PrintPizzaCalories()
+        {
+            Console.WriteLine($"{this.name} - {this.CalculatePizzaCaloriers():f2} Calories.");
+        }
     }
 }
+
+    

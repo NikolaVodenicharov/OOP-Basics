@@ -1,83 +1,90 @@
-﻿using System;
-using System.Collections.Generic;
-
-class Dough
+﻿namespace PizzaCalories.Pizzeria
 {
-    private const double CaloriesBase = 2.0;
-    private const double MinimumWeight = 1;
-    private const double MaximumWeigth = 200;
+    using System;
+    using System.Collections.Generic;
 
-    private static Dictionary<string, double> FlourTypeModifier = new Dictionary<string, double>()
+    public class Dough
     {
-        ["white"] = 1.5,
-        ["wholegrain"] = 1.0
-    };
+        private const double CaloriesBase = 2.0;
+        private const double MinimumWeight = 1;
+        private const double MaximumWeigth = 200;
 
-    private static readonly Dictionary<string, double> BakingTechniqueModifier = new Dictionary<string, double>()
-    {
-        ["crispy"] = 0.9,
-        ["chewy"] = 1.1,
-        ["homemade"] = 1.0
-    };                
-
-    private string flourType;
-    private string bakingTechnique;
-    private double weight;
-
-    public Dough(string flourType, string bakingTechnique, double weight)
-    {
-        this.FlourType = flourType;
-        this.BakingTechnique = bakingTechnique;
-        this.Weight = weight;
-    }
-
-    private string FlourType
-    {
-        set
+        private static Dictionary<string, double> FlourTypeModifier = new Dictionary<string, double>()
         {
-            if (!FlourTypeModifier.ContainsKey(value.ToLowerInvariant()))
-            {
-                throw new ArgumentException("Invalid type of dough.");
-            }
+            ["white"] = 1.5,
+            ["wholegrain"] = 1.0
+        };
 
-            this.flourType = value.ToLower();
-        }
-    }
-
-    private string BakingTechnique
-    {
-        set
+        private static readonly Dictionary<string, double> BakingTechniqueModifier = new Dictionary<string, double>()
         {
-            if (!BakingTechniqueModifier.ContainsKey(value.ToLowerInvariant()))
-            {
-                throw new ArgumentException("Invalid type of dough.");
-            }
+            ["crispy"] = 0.9,
+            ["chewy"] = 1.1,
+            ["homemade"] = 1.0
+        };
 
-            this.bakingTechnique = value.ToLower();
-        }
-    }
+        private string flourType;
+        private string bakingTechnique;
+        private double weight;
 
-    private double Weight
-    {
-        set
+        public Dough(string flourType, string bakingTechnique, double weight)
         {
-            if (value < MinimumWeight || value > MaximumWeigth)
-            {
-                throw new ArgumentException($"Dough weight should be in the range [{MinimumWeight}..{MaximumWeigth}].");
-            }
-
-            this.weight = value;
+            this.FlourType = flourType;
+            this.BakingTechnique = bakingTechnique;
+            this.Weight = weight;
         }
-    }
 
-    public double CalculateCalories ()
-    {
-        var calories = CaloriesBase *
-                       FlourTypeModifier[this.flourType] *
-                       BakingTechniqueModifier[this.bakingTechnique] *
-                       this.weight;
+        private string FlourType
+        {
+            set
+            {
+                if (!FlourTypeModifier.ContainsKey(value.ToLowerInvariant()))
+                {
+                    throw new ArgumentException("Invalid type of dough.");
+                }
 
-        return calories;
+                this.flourType = value.ToLower();
+            }
+        }
+
+        private string BakingTechnique
+        {
+            set
+            {
+                if (!BakingTechniqueModifier.ContainsKey(value.ToLowerInvariant()))
+                {
+                    throw new ArgumentException("Invalid type of dough.");
+                }
+
+                this.bakingTechnique = value.ToLower();
+            }
+        }
+
+        private double Weight
+        {
+            set
+            {
+                if (value < MinimumWeight || value > MaximumWeigth)
+                {
+                    throw new ArgumentException($"Dough weight should be in the range [{MinimumWeight}..{MaximumWeigth}].");
+                }
+
+                this.weight = value;
+            }
+        }
+
+        public double CalculateCalories()
+        {
+            var calories = CaloriesBase *
+                           FlourTypeModifier[this.flourType] *
+                           BakingTechniqueModifier[this.bakingTechnique] *
+                           this.weight;
+
+            return calories;
+        }
+
+        public void PrintCalories()
+        {
+            Console.WriteLine("{0:f2}", this.CalculateCalories());
+        }
     }
 }
-

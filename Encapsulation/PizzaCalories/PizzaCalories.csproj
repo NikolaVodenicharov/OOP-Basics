@@ -46,6 +46,7 @@
     <Compile Include="Pizzeria\Dough.cs" />
     <Compile Include="Pizzeria\Pizza.cs" />
     <Compile Include="PizzaCaloriesExecution.cs" />
+    <Compile Include="Pizzeria\PizzeriaFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pizzeria\Topping.cs" />
   </ItemGroup>
