@@ -29,7 +29,7 @@
                 {
                     var inputLines = new List<string>();
                     inputLines.Add(inputLine);
-                    ConsoleReader(inputLines);
+                    inputLines.AddRange(ConsoleReader());
 
                     Pizza pizza = PizzeriaFactory.MakePizza(inputLines);
                     pizza.PrintPizzaCalories();
@@ -57,8 +57,10 @@
             }
         }
 
-        private static void ConsoleReader(List<string> inputLines)
+        private static List<string> ConsoleReader()
         {
+            var inputLines = new List<string>();
+
             while (true)
             {
                 var inputLine = Console.ReadLine();
@@ -71,6 +73,8 @@
 
                 inputLines.Add(inputLine);
             }
+
+            return inputLines;
         }
     }
 }
